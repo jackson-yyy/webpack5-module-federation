@@ -1,3 +1,3 @@
 <template>
-  <div>app2</div>
+  <div>app1</div>
 </template>
