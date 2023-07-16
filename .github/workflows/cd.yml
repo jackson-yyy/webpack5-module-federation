@@ -1,0 +1,34 @@
+name: release
+
+on:
+  workflow_dispatch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest # 运行环境
+    steps:
+      - name: checkout
+        uses: actions/checkout@main
+
+      - name: setup nodejs
+        uses: actions/setup-node@v2
+        with:
+          node-version: "16.x"
+
+      - name: 安装依赖
+        run: pnpm i
+
+      - name: 前端项目打包
+        run: pnpm -r run build
+
+      - name: 获取分支号
+        id: 'vars'
+        run: echo ::set-output name=short_ref::${GITHUB_REF#refs/*/}
+
+      - name: 构建&上传镜像
+        run: | 
+          echo "准备构建镜像：mf-single-app-demo:${{ steps.vars.outputs.short_ref }}"
+          sudo docker login ccr.ccs.tencentyun.com --username=${{ secrets.TENCENT_DCOKERHUB_PASSWORD }}
+          docker version
+          docker build -f Dockerfile -t ccr.ccs.tencentyun.com/yb_study/study/mf-single-app-demo:${{ steps.vars.outputs.short_ref }} .
+          sudo docker push Dockerfile -t ccr.ccs.tencentyun.com/yb_study/study/mf-single-app-demo:${{ steps.vars.outputs.short_ref }}
