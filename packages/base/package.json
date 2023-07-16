@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "webpack serve --config ./webpack.config.js",
-    "build": "webpack --env prod --config ./webpack.config.js"
+    "start": "webpack serve --config ./build/webpack.config.dev.js",
+    "build": "webpack --config ./build/webpack.config.prod.js"
   }
 }
