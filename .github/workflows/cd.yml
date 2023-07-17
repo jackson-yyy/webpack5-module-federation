@@ -34,4 +34,4 @@ jobs:
           docker login ccr.ccs.tencentyun.com --username=${{ secrets.TENCENT_DCOKERHUB_USERNAME }} --password=${{ secrets.TENCENT_DCOKERHUB_PASSWORD }}
           docker version
           docker build -f Dockerfile -t ccr.ccs.tencentyun.com/yb_study/mf-single-app-demo:${{ steps.vars.outputs.short_ref }} .
-          sudo docker push ccr.ccs.tencentyun.com/yb_study/mf-single-app-demo:${{ steps.vars.outputs.short_ref }}
+          docker push ccr.ccs.tencentyun.com/yb_study/mf-single-app-demo:${{ steps.vars.outputs.short_ref }}
