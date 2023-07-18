@@ -5,5 +5,9 @@
   "scripts": {
     "start": "webpack serve --config ./build/webpack.config.dev.js",
     "build": "webpack --config ./build/webpack.config.prod.js"
+  },
+  "dependencies": {
+    "vue": "^3.2.36",
+    "vue-router": "^4.1.6"
   }
 }

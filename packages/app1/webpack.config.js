@@ -74,6 +74,11 @@ module.exports = {
       exposes: {
         './app': './src/App.vue',
       },
+      shared: {
+        vue: {
+          singleton: true
+        }
+      }
     }),
   ],
   

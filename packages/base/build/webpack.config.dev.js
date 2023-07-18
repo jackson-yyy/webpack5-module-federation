@@ -11,6 +11,12 @@ module.exports = merge(baseConfig, {
         app1: 'app1@http://localhost:8089/remoteEntry.js',
         app2: 'app2@http://localhost:8090/remoteEntry.js',
       },
+      shared: {
+        vue: {
+          singleton: true,
+          eager: true
+        }
+      }
     }),
   ]
 })
