@@ -1,13 +1,20 @@
 const path = require("path");
-
-function resolve(dir) {
-  return path.join(__dirname, '..', dir);
-}
-
+const { ModuleFederationPlugin } = require('webpack').container;
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { VueLoaderPlugin } = require("vue-loader");
 
+function resolve(dir) {
+  return path.join(__dirname, dir);
+}
+
+const isProd = process.env.NODE_ENV === 'production';
+
+function getRemoteUrl (name, port) {
+  return isProd ? `${name}@${name}/remoteEntry.js` : `${name}@http://localhost:${port}/remoteEntry.js`
+}
+
 module.exports = {
+  mode: process.env.NODE_ENV,
   performance: {
     hints: false
   },
@@ -64,7 +71,20 @@ module.exports = {
       template: resolve("public/index.html"),
       favicon: resolve("public/favicon.ico"),
       inject: true,
-    })
+    }),
+    new ModuleFederationPlugin({
+      name: 'base',
+      remotes: {
+        app1: getRemoteUrl('app1', 8089),
+        app2: getRemoteUrl('app2', 8090)
+      },
+      shared: {
+        vue: {
+          singleton: true,
+          eager: true
+        }
+      }
+    }),
   ],
   
 

@@ -9,7 +9,7 @@ const { VueLoaderPlugin } = require("vue-loader");
 const { ModuleFederationPlugin } = require('webpack').container;
 
 module.exports = {
-  mode: process.env.NODE_ENV === 'development' ? 'development' : 'production',
+  mode: process.env.NODE_ENV,
   entry: {
     app: resolve("src/main.ts"),
   },
@@ -26,7 +26,7 @@ module.exports = {
   },
   devServer: {
     port: 8090, // 端口号
-    hot: true, // 热更新
+    hot: false, // 热更新
   },
   module: {
     rules: [
