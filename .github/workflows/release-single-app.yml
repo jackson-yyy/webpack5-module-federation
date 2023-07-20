@@ -31,3 +31,16 @@ jobs:
           docker version
           docker build -f Dockerfile -t ccr.ccs.tencentyun.com/yb_study/module-federation-demo:single-app .
           docker push ccr.ccs.tencentyun.com/yb_study/module-federation-demo:single-app
+          
+      - name: 重启服务
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.TENCENT_SERVER_HOST }}
+          username: ${{ secrets.TENCENT_SERVER_USERNAME }}
+          key: ${{ secrets.TENCENT_SERVER_PRIVATE_KEY }}
+          port: ${{ secrets.TENCENT_SERVER_SSH_PORT }}
+          script: |
+            cd /www/
+            docker compose pull module-federation-demo:single-app
+            docker compose up -d
+
