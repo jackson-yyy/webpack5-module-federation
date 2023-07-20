@@ -10,7 +10,7 @@ function resolve(dir) {
 const isProd = process.env.NODE_ENV === 'production';
 
 function getRemoteUrl (name, port) {
-  return isProd ? `${name}@${name}/remoteEntry.js` : `${name}@http://localhost:${port}/remoteEntry.js`
+  return isProd ? `${name}@/${name}/remoteEntry.js` : `${name}@http://localhost:${port}/remoteEntry.js`
 }
 
 module.exports = {
