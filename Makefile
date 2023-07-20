@@ -6,8 +6,8 @@ build-multi-image:
 	@docker build -f ./packages/base/Dockerfile -t ccr.ccs.tencentyun.com/yb_study/module-federation-demo:multi-app-base ./packages/base
 	@docker push ccr.ccs.tencentyun.com/yb_study/module-federation-demo:multi-app-base
 
-	@docker build -f ./packages/app1/Dockerfile -t ccr.ccs.tencentyun.com/yb_study/module-federation-demo:multi-app-1 
+	@docker build -f ./packages/app1/Dockerfile -t ccr.ccs.tencentyun.com/yb_study/module-federation-demo:multi-app-1 ./packages/app1
 	@docker push ccr.ccs.tencentyun.com/yb_study/module-federation-demo:multi-app-1
 
-	@docker build -f ./packages/app2/Dockerfile -t ccr.ccs.tencentyun.com/yb_study/module-federation-demo:multi-app-2 .
+	@docker build -f ./packages/app2/Dockerfile -t ccr.ccs.tencentyun.com/yb_study/module-federation-demo:multi-app-2 ./packages/app2
 	@docker push ccr.ccs.tencentyun.com/yb_study/module-federation-demo:multi-app-2
