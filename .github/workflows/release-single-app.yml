@@ -41,6 +41,6 @@ jobs:
           port: ${{ secrets.TENCENT_SERVER_SSH_PORT }}
           script: |
             cd /www/
-            docker compose pull module-federation-demo:single-app
+            docker compose pull mf-single-app-demo
             docker compose up -d
 
