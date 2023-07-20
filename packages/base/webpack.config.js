@@ -8,9 +8,10 @@ function resolve(dir) {
 }
 
 const isProd = process.env.NODE_ENV === 'production';
+const isMulti = process.env.BUILD_MODE === 'multi';
 
-function getRemoteUrl (name, port) {
-  return isProd ? `${name}@/${name}/remoteEntry.js` : `${name}@http://localhost:${port}/remoteEntry.js`
+function getRemoteUrl (name, productionHost, devPort) {
+  return isProd ? `${name}@${productionHost}/remoteEntry.js` : `${name}@http://localhost:${devPort}/remoteEntry.js`
 }
 
 module.exports = {
@@ -25,6 +26,7 @@ module.exports = {
     path: resolve("dist"),
     filename: "js/[name].[hash].js",
     chunkFilename: "js/[name].[hash].js",
+    publicPath: '/'
   },
   resolve: {
     extensions: [".js", ".vue", ".json", ".ts", ".tsx", ".mjs"],
@@ -75,8 +77,8 @@ module.exports = {
     new ModuleFederationPlugin({
       name: 'base',
       remotes: {
-        app1: getRemoteUrl('app1', 8089),
-        app2: getRemoteUrl('app2', 8090)
+        app1: getRemoteUrl('app1', isMulti ? 'http://mf-multi-app-demo-1' :'/app1', 8089),
+        app2: getRemoteUrl('app2', isMulti ? 'http://mf-multi-app-demo-2' :'/app1', 8090)
       },
       shared: {
         vue: {

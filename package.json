@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start-all": "pnpm --filter base app1 run start"
+    "build:single": "cross-env BUILD_MOD=single && pnpm -r run build",
+    "build:multi": "cross-env BUILD_MOD=multi && pnpm -r run build"
   },
   "repository": {
     "type": "git",

@@ -1,4 +1,4 @@
-name: release-single-app
+name: release-multi-app
 
 on:
   workflow_dispatch
@@ -28,9 +28,8 @@ jobs:
         run: | 
           docker login ccr.ccs.tencentyun.com --username=${{ secrets.TENCENT_DCOKERHUB_USERNAME }} --password=${{ secrets.TENCENT_DCOKERHUB_PASSWORD }}
           docker version
-          
-          make build-single-image
-          
+
+          make build-multi-image
       - name: 重启服务
         uses: appleboy/ssh-action@master
         with:
@@ -40,6 +39,6 @@ jobs:
           port: ${{ secrets.TENCENT_SERVER_SSH_PORT }}
           script: |
             cd /www/
-            docker-compose pull mf-single-app-demo
+            docker-compose config --services | grep mf-multi-app-demo | xargs docker-compose pull
             docker-compose up -d
 
