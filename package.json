@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build:single": "cross-env BUILD_MOD=single && pnpm -r run build",
-    "build:multi": "cross-env BUILD_MOD=multi && pnpm -r run build"
+    "build:single": "cross-env BUILD_MODE=single  pnpm -r run build",
+    "build:multi": "cross-env BUILD_MODE=multi pnpm -r run build"
   },
   "repository": {
     "type": "git",
