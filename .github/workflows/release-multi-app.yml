@@ -22,7 +22,7 @@ jobs:
         run: pnpm i
 
       - name: 前端项目打包
-        run: pnpm -r run build
+        run: pnpm run build:multi
 
       - name: 构建&上传镜像
         run: | 
