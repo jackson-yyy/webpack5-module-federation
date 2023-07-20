@@ -1,4 +1,4 @@
-name: release
+name: release-single-app
 
 on:
   workflow_dispatch
@@ -24,14 +24,10 @@ jobs:
       - name: 前端项目打包
         run: pnpm -r run build
 
-      - name: 获取分支号
-        id: 'vars'
-        run: echo ::set-output name=short_ref::${GITHUB_REF#refs/*/}
-
       - name: 构建&上传镜像
         run: | 
-          echo "准备构建镜像：mf-single-app-demo:${{ steps.vars.outputs.short_ref }}"
+          echo "准备构建镜像：module-federation-demo:single-app"
           docker login ccr.ccs.tencentyun.com --username=${{ secrets.TENCENT_DCOKERHUB_USERNAME }} --password=${{ secrets.TENCENT_DCOKERHUB_PASSWORD }}
           docker version
-          docker build -f Dockerfile -t ccr.ccs.tencentyun.com/yb_study/mf-single-app-demo:${{ steps.vars.outputs.short_ref }} .
-          docker push ccr.ccs.tencentyun.com/yb_study/mf-single-app-demo:${{ steps.vars.outputs.short_ref }}
+          docker build -f Dockerfile -t ccr.ccs.tencentyun.com/yb_study/module-federation-demo:single-app .
+          docker push ccr.ccs.tencentyun.com/yb_study/module-federation-demo:single-app
