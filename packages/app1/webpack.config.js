@@ -18,7 +18,7 @@ module.exports = {
     path: resolve("dist"),
     filename: "js/[name].[hash].js",
     chunkFilename: "js/[name].[hash].js",
-    publicPath: isProd ? './app1' : 'auto'
+    publicPath: isProd ? './app1/' : 'auto'
   },
   resolve: {
     extensions: [".js", ".vue", ".json", ".ts", ".tsx", ".mjs"],
