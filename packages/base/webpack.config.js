@@ -10,9 +10,9 @@ function resolve(dir) {
 const isProd = process.env.NODE_ENV === 'production';
 
 function getRemoteConfig (names) {
-  return names.reduce((res, name) => ({
+  return names.reduce((res, {name, port}) => ({
     ...res,
-    [name]: isProd ? `${name}@${name}/remoteEntry.js` : `${name}@http://localhost:${devPort}/remoteEntry.js`
+    [name]: isProd ? `${name}@${name}/remoteEntry.js` : `${name}@http://localhost:${port}/remoteEntry.js`
   }), {})
 }
 
@@ -28,7 +28,7 @@ module.exports = {
     path: resolve("dist"),
     filename: "js/[name].[hash].js",
     chunkFilename: "js/[name].[hash].js",
-    publicPath: './'
+    publicPath: isProd ? './' : 'auto'
   },
   resolve: {
     extensions: [".js", ".vue", ".json", ".ts", ".tsx", ".mjs"],
@@ -78,7 +78,16 @@ module.exports = {
     }),
     new ModuleFederationPlugin({
       name: 'base',
-      remotes: getRemoteConfig(['app1', 'app2']),
+      remotes: getRemoteConfig([
+        {
+          name: 'app1',
+          port: 8089
+        }, 
+        {
+          name: 'app2',
+          port: 8090
+        }
+      ]),
       shared: {
         vue: {
           singleton: true,

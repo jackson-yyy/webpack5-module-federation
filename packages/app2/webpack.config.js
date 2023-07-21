@@ -7,6 +7,7 @@ function resolve(dir) {
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { VueLoaderPlugin } = require("vue-loader");
 const { ModuleFederationPlugin } = require('webpack').container;
+const isProd = process.env.NODE_ENV === 'production';
 
 module.exports = {
   mode: process.env.NODE_ENV,
@@ -17,7 +18,7 @@ module.exports = {
     path: resolve("dist"),
     filename: "js/[name].[hash].js",
     chunkFilename: "js/[name].[hash].js",
-    publicPath: './'
+    publicPath: isProd ? './app1' : 'auto'
   },
   resolve: {
     extensions: [".js", ".vue", ".json", ".ts", ".tsx", ".mjs"],
